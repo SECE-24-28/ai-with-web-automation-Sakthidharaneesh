@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import heroCar from "../assets/hero-car.jpg";
+
 import modelTurbo from "../assets/model-turbo.jpg";
 import engineClosed from "../assets/engine-closed.jpg";
 import engineOpen from "../assets/engine-open.jpg";
+import { LoadingScreen, StartExperience } from "../components/StartExperience";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -35,6 +36,7 @@ function Index() {
   const [active, setActive] = useState<SectionId>("start");
   const [prev, setPrev] = useState<SectionId>("start");
   const [transitioning, setTransitioning] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const change = (id: SectionId) => {
     if (id === active) return;
@@ -46,9 +48,10 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-racing-red selection:text-white overflow-hidden">
+      {loading && <LoadingScreen onDone={() => setLoading(false)} />}
       <ScanlineOverlay />
       <Navbar active={active} onChange={change} />
-      <main className="relative h-[calc(100vh-4rem)] w-full">
+      <main className={`relative w-full ${active === "start" ? "h-[calc(100vh-4rem)]" : "h-[calc(100vh-4rem)]"}`}>
         <SectionStage active={active} prev={prev} transitioning={transitioning} />
       </main>
     </div>
@@ -154,7 +157,7 @@ function SectionStage({
         key={active}
         className="absolute inset-0 animate-section-in"
       >
-        {active === "start" && <StartSection />}
+        {active === "start" && <StartExperience />}
         {active === "design" && <DesignSection />}
         {active === "engine" && <EngineSection />}
       </div>
@@ -170,58 +173,8 @@ function Wipe() {
   );
 }
 
-/* ---------------- START ---------------- */
-function StartSection() {
-  return (
-    <section className="relative w-full h-full flex flex-col">
-      <BackdropGrid />
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black z-10" />
+/* StartSection replaced by StartExperience component */
 
-      <img
-        src={heroCar}
-        alt="Porsche 911 GT3 RS hero"
-        className="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-90 animate-zoom-slow"
-      />
-
-      {/* floor reflection vignette */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black to-transparent z-10" />
-
-      <div className="relative z-20 flex-1 px-6 lg:px-16 pt-10 lg:pt-16 flex flex-col">
-        <div className="flex items-start justify-between">
-          <div className="font-mono text-[10px] tracking-[0.3em] text-foreground/60 uppercase animate-fade-up">
-            The Apex Predator
-          </div>
-          <div className="text-right animate-fade-up delay-100">
-            <div className="text-2xl lg:text-4xl font-extrabold tracking-tight text-foreground">
-              € 285,000
-            </div>
-            <button className="mt-1 text-[10px] font-mono tracking-[0.3em] uppercase text-foreground/60 hover:text-racing-red transition">
-              Contact Dealer
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-auto pb-12 lg:pb-20">
-          <h1 className="font-extrabold tracking-[-0.04em] leading-[0.85] uppercase text-foreground drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
-            <span className="block text-6xl sm:text-8xl lg:text-[9rem] animate-title-in">
-              Porsche
-            </span>
-            <span className="block text-6xl sm:text-8xl lg:text-[9rem] italic font-black animate-title-in delay-150">
-              911 <span className="text-racing-red">GT3 RS</span>
-            </span>
-          </h1>
-          <p className="mt-6 text-foreground/60 font-mono text-xs tracking-widest uppercase max-w-md animate-fade-up delay-300">
-            A family of extreme performance cars.
-          </p>
-          <button className="mt-6 group inline-flex items-center gap-3 text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/80 hover:text-racing-red transition animate-fade-up delay-500">
-            <span>Discover More</span>
-            <span className="w-10 h-px bg-current group-hover:w-16 transition-all" />
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- DESIGN ---------------- */
 function DesignSection() {
