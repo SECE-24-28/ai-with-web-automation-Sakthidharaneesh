@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import heroCar from "../assets/hero-car.jpg";
 import modelTurbo from "../assets/model-turbo.jpg";
 import modelGt from "../assets/model-gt.jpg";
@@ -353,6 +353,3 @@ function BackdropGrid() {
   );
 }
 
-// silence unused warnings if any
-void useEffect;
-void useRef;
