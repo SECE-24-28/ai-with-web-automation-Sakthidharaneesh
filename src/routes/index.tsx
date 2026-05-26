@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import heroCar from "../assets/hero-car.jpg";
 import modelTurbo from "../assets/model-turbo.jpg";
-import modelGt from "../assets/model-gt.jpg";
+import engineClosed from "../assets/engine-closed.jpg";
+import engineOpen from "../assets/engine-open.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -295,12 +296,23 @@ function EngineSection() {
       <BackdropGrid />
       <div className="absolute inset-0 bg-black z-0" />
 
+      {/* OPEN engine bay revealed underneath */}
       <img
-        src={modelGt}
-        alt="Porsche 911 engineering rear"
-        className="absolute inset-0 w-full h-full object-cover object-center opacity-85 z-10 animate-zoom-slow"
+        src={engineOpen}
+        alt="Porsche 911 engine bay open"
+        className="absolute inset-0 w-full h-full object-cover object-center z-10 animate-engine-reveal"
       />
-      <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/30 to-black/80 z-20" />
+
+      {/* CLOSED car on top - lifts/fades away to "open" the hood */}
+      <img
+        src={engineClosed}
+        alt="Porsche 911 rear closed"
+        className="absolute inset-0 w-full h-full object-cover object-center z-15 animate-hood-open"
+        style={{ transformOrigin: "50% 75%" }}
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/10 to-black/80 z-20" />
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black to-transparent z-20" />
 
       <div className="relative z-30 h-full px-6 lg:px-16 py-10 lg:py-16 flex flex-col justify-between">
         <span className="font-mono text-[10px] tracking-[0.3em] text-racing-red uppercase animate-fade-up">
