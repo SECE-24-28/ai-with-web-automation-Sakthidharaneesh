@@ -4,6 +4,7 @@ import heroCar from "../assets/hero-car.jpg";
 import modelTurbo from "../assets/model-turbo.jpg";
 import engineClosed from "../assets/engine-closed.jpg";
 import engineOpen from "../assets/engine-open.jpg";
+import { LoadingScreen, StartExperience } from "../components/StartExperience";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -35,6 +36,7 @@ function Index() {
   const [active, setActive] = useState<SectionId>("start");
   const [prev, setPrev] = useState<SectionId>("start");
   const [transitioning, setTransitioning] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const change = (id: SectionId) => {
     if (id === active) return;
@@ -46,9 +48,10 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-racing-red selection:text-white overflow-hidden">
+      {loading && <LoadingScreen onDone={() => setLoading(false)} />}
       <ScanlineOverlay />
       <Navbar active={active} onChange={change} />
-      <main className="relative h-[calc(100vh-4rem)] w-full">
+      <main className={`relative w-full ${active === "start" ? "h-[calc(100vh-4rem)]" : "h-[calc(100vh-4rem)]"}`}>
         <SectionStage active={active} prev={prev} transitioning={transitioning} />
       </main>
     </div>
@@ -154,7 +157,7 @@ function SectionStage({
         key={active}
         className="absolute inset-0 animate-section-in"
       >
-        {active === "start" && <StartSection />}
+        {active === "start" && <StartExperience />}
         {active === "design" && <DesignSection />}
         {active === "engine" && <EngineSection />}
       </div>
