@@ -174,3 +174,50 @@
 .group:hover .model-card-img {
   filter: grayscale(0%);
 }
+
+/* Section transitions for Porsche layout */
+@keyframes sectionIn {
+  0% { opacity: 0; transform: scale(1.04); filter: blur(8px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+.animate-section-in { animation: sectionIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes wipeOut {
+  0% { transform: scaleX(0); }
+  50% { transform: scaleX(1); transform-origin: left; }
+  50.01% { transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+.animate-wipe-out { animation: wipeOut 0.7s cubic-bezier(0.77, 0, 0.18, 1) both; }
+
+@keyframes titleIn {
+  0% { opacity: 0; transform: translateY(40px); letter-spacing: 0.1em; filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); letter-spacing: -0.04em; filter: blur(0); }
+}
+.animate-title-in { animation: titleIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.delay-150 { animation-delay: 150ms; }
+
+@keyframes zoomSlow {
+  0% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.animate-zoom-slow { animation: zoomSlow 8s ease-out both; }
+
+@keyframes panRight {
+  0% { transform: scale(1.1) translateX(-3%); }
+  100% { transform: scale(1.1) translateX(3%); }
+}
+.animate-pan-right { animation: panRight 12s ease-in-out both alternate infinite; }
+
+@keyframes lineGrowRight {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.animate-line-grow { animation: lineGrowRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
